@@ -2,11 +2,12 @@ Summary:	GTK+ binding for OCaml
 Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
 Version:	1.2.3
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
+Patch0:		%{name}-gnome.patch
 BuildRequires:	gtk+-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	libglade-devel
@@ -150,6 +151,7 @@ Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgtk.
 
 %prep
 %setup -q -n lablgtk-%{version}
+%patch0 -p1
 
 %build
 %{__make} \
