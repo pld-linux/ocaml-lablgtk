@@ -1,10 +1,9 @@
 #
 # Conditional build:
-
-%bcond_with gl	# without lablgtkgl
-%bcond_with gnome	# without lablgtkgnome
-%bcond_with glade	# without lablgtkglade
-
+%bcond_with gl		# build with lablgtkgl packages
+%bcond_with gnome	# build with lablgtkgnome packages
+%bcond_with glade	# build with lablgtkglade packages
+#
 Summary:	GTK+ binding for OCaml
 Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
