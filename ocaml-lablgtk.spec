@@ -21,7 +21,7 @@ BuildRequires:	gtk+-devel
 %{?with_gl:BuildRequires:	gtkglarea1-devel >= 1.2.0}
 %{?with_glade:BuildRequires:	libglade-devel}
 %if %{with glade} && %{with gnome}
-BuildRequires:  libglade-gnome-devel
+BuildRequires:	libglade-gnome-devel
 %endif
 BuildRequires:	libxml-devel
 BuildRequires:	ocaml-camlp4 >= 3.07
