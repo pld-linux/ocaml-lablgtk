@@ -264,7 +264,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/lablgtk/gtk.cm*
 %{_libdir}/ocaml/lablgtk/gtk[ABDEILMNPRSTW]*.cm*
 # hmm.. where did xml_lexer go?
-#%{_libdir}/ocaml/lablgtk/x*.cm*
+#%%{_libdir}/ocaml/lablgtk/x*.cm*
 %{_libdir}/ocaml/lablgtk/*.[ho]
 %{_libdir}/ocaml/lablgtk/lablgtk.*
 %{_libdir}/ocaml/lablgtk/liblablgtk.*
