@@ -18,17 +18,17 @@ Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk2-%{_snap}.tar.gz
 # Source0-md5:	f20de46a7de7790e2345f18bc6759615
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
-%{!?_without_gnome:BuildRequires:	libgnomecanvas-devel}
 BuildRequires:	gtk+2-devel
-BuildRequires:	librsvg-devel >= 2.0
 %{!?_without_gl:BuildRequires:	gtkglarea-devel}
 %{!?_without_glade:BuildRequires:	libglade2-devel}
+%{!?_without_gnome:BuildRequires:	libgnomecanvas-devel}
+BuildRequires:	librsvg-devel >= 2.0
 BuildRequires:	libxml-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
 %{!?_without_gl:BuildRequires:	ocaml-lablgl-devel}
 %requires_eq	ocaml-runtime
-Obsoletes:	lablgtk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	lablgtk
 
 %description
 GTK+ binding for OCaml. This package contains files needed to run
@@ -150,8 +150,8 @@ Summary:	GTK+ binding for OCaml - GtkGL support
 Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-%requires_eq	ocaml-runtime
 %requires_eq	ocaml-lablgl
+%requires_eq	ocaml-runtime
 
 %description gl
 GTK+ binding for OCaml, GtkGL support. This package contains files
@@ -210,7 +210,7 @@ Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgtk.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/stublibs}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/labl{gtk,gnomecanvas,glade,gtkgl,rsvg}},%{_examplesdir}/%{name}-%{version}}
 
 %{__make} install \
 	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk \
@@ -218,7 +218,6 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/stublibs}
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -r examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # .mli files stay, they are the only documentation, but .ml go
@@ -227,7 +226,6 @@ gzip -9nf $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.mli
 mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.gz .
 
 # make METAs for findlib
-install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labl{gtk,gnomecanvas,glade,gtkgl,rsvg}
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgtk/META <<EOF
 # Specifications for the "lablgtk" library:
 requires = ""
