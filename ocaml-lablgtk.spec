@@ -12,18 +12,17 @@ BuildRequires:	gnome-libs-devel
 BuildRequires:	libglade-devel
 BuildRequires:	libxml-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
+BuildRequires:	ocaml-lablgl-devel
 %requires_eq	ocaml-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-GTK+ binding for OCaml. GNOME and Glade support is included. This
-package contains files needed to run bytecode OCaml programs using
-LablGtk.
+GTK+ binding for OCaml. This package contains files needed to run
+bytecode OCaml programs using LablGtk.
 
 %description -l pl
-Wi±zania GTK+ dla OCamla. Wsparcie dla GNOME i Glade jest do³±czone.
-Pakiet ten zawiera binaria potrzebne do uruchamiania programów
-u¿ywaj±cych LablGtk.
+Wi±zania GTK+ dla OCamla. Pakiet ten zawiera binaria potrzebne do
+uruchamiania programów u¿ywaj±cych LablGtk.
 
 %package devel
 Summary:	GTK+ binding for OCaml - development part
@@ -31,15 +30,107 @@ Summary(pl):	Wi±zania GTK+ dla OCamla - cze¶æ programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
+%requires_eq	ocaml-lablgl-devel
 
 %description devel
-GTK+ binding for OCaml. GNOME and Glade support is included. This
-package contains files needed to develop OCaml programs using LablTk.
+GTK+ binding for OCaml. This package contains files needed to develop
+OCaml programs using LablGtk.
 
 %description devel -l pl
-Wi±zania GTK+ dla OCamla. Wsparcie dla GNOME i Glade jest do³±czone.
-Pakiet ten zawiera pliki niezbêdne do tworzenia programów u¿ywaj±cych
-LablTk.
+Wi±zania GTK+ dla OCamla. Pakiet ten zawiera pliki niezbêdne do
+tworzenia programów u¿ywaj±cych LablGtk.
+
+%package gnome
+Summary:	GTK+ binding for OCaml - GNOME support
+Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GNOME
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+%requires_eq	ocaml-runtime
+
+%description gnome
+GTK+ binding for OCaml, GNOME support. This package contains files
+needed to run bytecode OCaml programs using LablGtk-GNOME.
+
+%description gnome -l pl
+Wi±zania GTK+ dla OCamla, wsparcie dla GNOME. Pakiet ten zawiera
+binaria potrzebne do uruchamiania programów u¿ywaj±cych LablGtk-GNOME.
+
+%package gnome-devel
+Summary:	GTK+ binding for OCaml - GNOME support, development part
+Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GNOME, czê¶æ programistyczna
+Group:		Development/Libraries
+Requires:	%{name}-gnome = %{version}-%{release}
+%requires_eq	ocaml
+
+%description gnome-devel
+GTK+ binding for OCaml, GNOME support. This package contains files
+needed to develop OCaml programs using LablGtk-GNOME.
+
+%description gnome-devel -l pl
+Wi±zania GTK+ dla OCamla, wsparcie dla GNOME. Pakiet ten zawiera pliki
+niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-GNOME.
+
+%package glade
+Summary:	GTK+ binding for OCaml - Glade support
+Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla Glade
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+%requires_eq	ocaml-runtime
+
+%description glade
+GTK+ binding for OCaml, Glade support. This package contains files
+needed to run bytecode OCaml programs using LablGtk-Glade.
+
+%description glade -l pl
+Wi±zania GTK+ dla OCamla, wsparcie dla Glade. Pakiet ten zawiera
+binaria potrzebne do uruchamiania programów u¿ywaj±cych LablGtk-Glade.
+
+%package glade-devel
+Summary:	GTK+ binding for OCaml - Glade support, development part
+Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla Glade, czê¶æ programistyczna
+Group:		Development/Libraries
+Requires:	%{name}-glade = %{version}-%{release}
+%requires_eq	ocaml
+
+%description glade-devel
+GTK+ binding for OCaml, Glade support. This package contains files
+needed to develop OCaml programs using LablGtk-Glade.
+
+%description glade-devel -l pl
+Wi±zania GTK+ dla OCamla, wsparcie dla Glade. Pakiet ten zawiera pliki
+niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-Glade.
+
+%package gl
+Summary:	GTK+ binding for OCaml - GtkGL support
+Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+%requires_eq	ocaml-runtime
+%requires_eq	ocaml-lablgl
+
+%description gl
+GTK+ binding for OCaml, GtkGL support. This package contains files
+needed to run bytecode OCaml programs using LablGtk-GtkGL.
+
+%description gl -l pl
+Wi±zania GTK+ dla OCamla, wsparcie dla GtkGL. Pakiet ten zawiera
+binaria potrzebne do uruchamiania programów u¿ywaj±cych LablGtk-GtkGL.
+
+%package gl-devel
+Summary:	GTK+ binding for OCaml - GtkGL support, development part
+Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL, czê¶æ programistyczna
+Group:		Development/Libraries
+Requires:	%{name}-gl = %{version}-%{release}
+%requires_eq	ocaml
+%requires_eq	ocaml-lablgl-devel
+
+%description gl-devel
+GTK+ binding for OCaml, GtkGL support. This package contains files
+needed to develop OCaml programs using LablGtk-GtkGL.
+
+%description gl-devel -l pl
+Wi±zania GTK+ dla OCamla, wsparcie dla GtkGL. Pakiet ten zawiera pliki
+niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-GtkGL.
 
 %package toplevel
 Summary:	GTK+ binding for OCaml - interactive system
@@ -63,11 +154,12 @@ Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgtk.
 %build
 %{__make} \
 	configure \
-	CC="%{__cc} %{rpmcflags} -fpic" \
+	CC="%{__cc} %{rpmcflags} -fPIC" \
 	USE_CC=1 \
 	USE_GNOME=1 \
-	USE_GLADE=1
-%{__make} all opt
+	USE_GLADE=1 \
+	USE_GL=1
+%{__make} LABLGLDIR=%{_libdir}/ocaml/lablgl all opt
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -89,8 +181,8 @@ mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.gz .
 
 (cd $RPM_BUILD_ROOT%{_libdir}/ocaml/ && ln -s lablgtk/dll*.so .)
 
-# make META for findlib
-install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgtk
+# make METAs for findlib
+install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labl{gtk,gnome,glade,gtkgl}
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgtk/META <<EOF
 # Specifications for the "lablgtk" library:
 requires = ""
@@ -98,12 +190,20 @@ version = "%{version}"
 directory = "+lablgtk"
 archive(byte) = "lablgtk.cma gtkInit.cmo"
 archive(native) = "lablgtk.cmxa gtkInit.cmx"
-archive(byte,gnome) = "lablgnome.cma"
-archive(native,gnome) = "lablgnome.cmxa"
-archive(byte,glade) = "lablglade.cma"
-archive(native,glade) = "lablglade.cmxa"
 linkopts = ""
 EOF
+
+for f in gnome glade gtkgl ; do
+cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labl$f/META <<EOF
+# Specifications for the "lablgtk" library:
+requires = "lablgtk"
+version = "%{version}"
+directory = "+lablgtk"
+archive(byte) = "labl$f.cma"
+archive(native) = "labl$f.cmxa"
+linkopts = ""
+EOF
+done
 
 gzip -9nf README CHANGES COPYING
 
@@ -113,15 +213,59 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %dir %{_libdir}/ocaml/lablgtk
-%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dll*.so
-%{_libdir}/ocaml/dll*.so
+%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablgtk.so
+%{_libdir}/ocaml/dlllablgtk.so
+
+%files gnome
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablgnome.so
+%{_libdir}/ocaml/dlllablgnome.so
+
+%files glade
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablglade.so
+%{_libdir}/ocaml/dlllablglade.so
+
+%files gl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablgtkgl.so
+%{_libdir}/ocaml/dlllablgtkgl.so
+
+%files gl-devel
+%defattr(644,root,root,755)
+%{_libdir}/ocaml/lablgtk/glGtk.cm*
+%{_libdir}/ocaml/lablgtk/lablgtkgl.*
+%{_libdir}/ocaml/lablgtk/liblablgtkgl.*
+%{_libdir}/ocaml/site-lib/lablgtkgl
+
+%files gnome-devel
+%defattr(644,root,root,755)
+%{_libdir}/ocaml/lablgtk/gtkXmHTML.cm*
+%{_libdir}/ocaml/lablgtk/gHtml.cm*
+%{_libdir}/ocaml/lablgtk/lablgnome.*
+%{_libdir}/ocaml/lablgtk/liblablgnome.*
+%{_libdir}/ocaml/site-lib/lablgnome
+
+%files glade-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/lablgladecc
+%{_libdir}/ocaml/lablgtk/glade.cm*
+%{_libdir}/ocaml/lablgtk/lablglade.*
+%{_libdir}/ocaml/lablgtk/liblablglade.*
+%{_libdir}/ocaml/site-lib/lablglade
 
 %files devel
 %defattr(644,root,root,755)
 %doc *.gz
-%attr(755,root,root) %{_bindir}/lablgladecc
-%{_libdir}/ocaml/lablgtk/*.cm*
-%{_libdir}/ocaml/lablgtk/*.[hao]
+%{_libdir}/ocaml/lablgtk/g[BCDELMOPRTUWadp]*.cm*
+%{_libdir}/ocaml/lablgtk/glib.cm*
+%{_libdir}/ocaml/lablgtk/gtk.cm*
+%{_libdir}/ocaml/lablgtk/gtk[ABDEILMNPRSTW]*.cm*
+# hmm.. where did xml_lexer go?
+#%{_libdir}/ocaml/lablgtk/x*.cm*
+%{_libdir}/ocaml/lablgtk/*.[ho]
+%{_libdir}/ocaml/lablgtk/lablgtk.*
+%{_libdir}/ocaml/lablgtk/liblablgtk.*
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/varcc
 %{_examplesdir}/%{name}-%{version}
 %{_libdir}/ocaml/site-lib/lablgtk
