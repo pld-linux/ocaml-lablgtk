@@ -1,31 +1,32 @@
 #
 # Conditional build:
-# _without_gl		- without lablgtkgl
-# _without_gnome	- without lablgnome
-# _without_glade	- without lablglade
-#
-%if 0%{?_without_glade:1}%{?_without_gnome:1}
-%define _without_glgn 1
-%endif
-%define _snap 20030423
+
+%bcond_with gl	# without lablgtkgl
+%bcond_with gnome	# without lablgtkgnome
+%bcond_with glade	# without lablgtkglade
+
 Summary:	GTK+ binding for OCaml
 Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
-Version:	1.3.1
-Release:	0.%{_snap}.1
+Epoch:		1
+Version:	1.2.5
+Release:	1
 License:	LGPL w/ linking exceptions
 Group:		Libraries
-Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk2-%{_snap}.tar.gz
-# Source0-md5:	f20de46a7de7790e2345f18bc6759615
+Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
+# Source0-md5:	92628c756d2d3e2706b59d0382f23c19
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
-BuildRequires:	gtk+2-devel
-%{!?_without_gl:BuildRequires:	gtkglarea-devel}
-%{!?_without_glade:BuildRequires:	libglade2-devel}
-%{!?_without_gnome:BuildRequires:	libgnomecanvas-devel}
-BuildRequires:	librsvg-devel >= 2.0
+BuildRequires:	gdk-pixbuf-devel
+%{?with_gnome:BuildRequires:	gnome-libs-devel}
+BuildRequires:	gtk+-devel
+%{?with_gl:BuildRequires:	gtkglarea1-devel >= 1.2.0}
+%{?with_glade:BuildRequires:	libglade-devel}
+%if %{with glade} && %{with gnome}
+BuildRequires:  libglade-gnome-devel
+%endif
 BuildRequires:	libxml-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
-%{!?_without_gl:BuildRequires:	ocaml-lablgl-devel}
+%{?with_gl:BuildRequires:	ocaml-lablgl-devel}
 %requires_eq	ocaml-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	lablgtk
@@ -42,7 +43,7 @@ uruchamiania programów u¿ywaj±cych LablGtk.
 Summary:	GTK+ binding for OCaml - development part
 Summary(pl):	Wi±zania GTK+ dla OCamla - cze¶æ programistyczna
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
 %requires_eq	ocaml-lablgl-devel
 Obsoletes:	lablgtk-examples
@@ -59,7 +60,7 @@ tworzenia programów u¿ywaj±cych LablGtk.
 Summary:	GTK+ binding for OCaml - GNOME support
 Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GNOME
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml-runtime
 
 %description gnome
@@ -89,7 +90,7 @@ niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-GNOME.
 Summary:	GTK+ binding for OCaml - Glade support
 Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla Glade
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml-runtime
 
 %description glade
@@ -104,7 +105,7 @@ binaria potrzebne do uruchamiania programów u¿ywaj±cych LablGtk-Glade.
 Summary:	GTK+ binding for OCaml - Glade support, development part
 Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla Glade, czê¶æ programistyczna
 Group:		Development/Libraries
-Requires:	%{name}-glade = %{version}-%{release}
+Requires:	%{name}-glade = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
 
 %description glade-devel
@@ -115,43 +116,13 @@ needed to develop OCaml programs using LablGtk-Glade.
 Wi±zania GTK+ dla OCamla, wsparcie dla Glade. Pakiet ten zawiera pliki
 niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-Glade.
 
-%package rsvg
-Summary:	GTK+ binding for OCaml - RSVG support
-Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla RSVG
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-%requires_eq	ocaml-runtime
-
-%description rsvg
-GTK+ binding for OCaml, RSVG support. This package contains files
-needed to run bytecode OCaml programs using LablGtk-RSVG.
-
-%description rsvg -l pl
-Wi±zania GTK+ dla OCamla, wsparcie dla RSVG. Pakiet ten zawiera
-binaria potrzebne do uruchamiania programów u¿ywaj±cych LablGtk-RSVG.
-
-%package rsvg-devel
-Summary:	GTK+ binding for OCaml - RSVG support, development part
-Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla RSVG, czê¶æ programistyczna
-Group:		Development/Libraries
-Requires:	%{name}-rsvg = %{version}-%{release}
-%requires_eq	ocaml
-
-%description rsvg-devel
-GTK+ binding for OCaml, RSVG support. This package contains files
-needed to develop OCaml programs using LablGtk-RSVG.
-
-%description rsvg-devel -l pl
-Wi±zania GTK+ dla OCamla, wsparcie dla RSVG. Pakiet ten zawiera pliki
-niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-RSVG.
-
 %package gl
 Summary:	GTK+ binding for OCaml - GtkGL support
 Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-%requires_eq	ocaml-lablgl
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml-runtime
+%requires_eq	ocaml-lablgl
 
 %description gl
 GTK+ binding for OCaml, GtkGL support. This package contains files
@@ -165,7 +136,7 @@ binaria potrzebne do uruchamiania programów u¿ywaj±cych LablGtk-GtkGL.
 Summary:	GTK+ binding for OCaml - GtkGL support, development part
 Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL, czê¶æ programistyczna
 Group:		Development/Libraries
-Requires:	%{name}-gl = %{version}-%{release}
+Requires:	%{name}-gl = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
 %requires_eq	ocaml-lablgl-devel
 
@@ -181,7 +152,7 @@ niezbêdne do tworzenia programów u¿ywaj±cych LablGtk-GtkGL.
 Summary:	GTK+ binding for OCaml - interactive system
 Summary(pl):	Wi±zania GTK+ dla OCamla - system interaktywny
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
 
 %description toplevel
@@ -194,23 +165,22 @@ Wi±zania GTK+ dla OCamla. Wsparcie dla GNOME i Glade jest do³±czone.
 Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgtk.
 
 %prep
-%setup -q -n lablgtk2
+%setup -q -n lablgtk-%{version}
 
 %build
 %{__make} configure \
 	CC="%{__cc} %{rpmcflags} -fPIC" \
 	USE_CC=1 \
-	%{!?_without_gnome:USE_GNOMECANVAS=1} \
-	%{!?_without_glade:USE_GLADE=1} \
-	%{!?_without_gl:USE_GL=1} \
-	USE_RSVG=1
+	%{?with_gnome:USE_GNOME=1} \
+	%{?with_glade:USE_GLADE=1} \
+	%{?with_gl:USE_GL=1}
 
 %{__make} all opt \
 	LABLGLDIR=%{_libdir}/ocaml/lablgl
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/labl{gtk,gnomecanvas,glade,gtkgl,rsvg}},%{_examplesdir}/%{name}-%{version}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/stublibs}
 
 %{__make} install \
 	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk \
@@ -218,6 +188,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/{stublibs,site-lib/labl{g
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -r examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # .mli files stay, they are the only documentation, but .ml go
@@ -226,6 +197,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.mli
 mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.gz .
 
 # make METAs for findlib
+install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labl{gtk,gnome,glade,gtkgl}
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/lablgtk/META <<EOF
 # Specifications for the "lablgtk" library:
 requires = ""
@@ -236,7 +208,7 @@ archive(native) = "lablgtk.cmxa gtkInit.cmx"
 linkopts = ""
 EOF
 
-for f in gnomecanvas glade gtkgl rsvg ; do
+for f in gnome glade gtkgl ; do
 cat > $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labl$f/META <<EOF
 # Specifications for the "lablgtk" library:
 requires = "lablgtk"
@@ -253,80 +225,71 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES COPYING README
-%dir %{_libdir}/ocaml/lablgtk
-%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtk2.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtk.so
 
 %files devel
 %defattr(644,root,root,755)
+%doc CHANGES COPYING README
+%dir %{_libdir}/ocaml/lablgtk
 %{_libdir}/ocaml/lablgtk/g[BCDELMOPRTUWadp]*.cm*
 %{_libdir}/ocaml/lablgtk/glib.cm*
-%{_libdir}/ocaml/lablgtk/gobject.cm*
 %{_libdir}/ocaml/lablgtk/gtk.cm*
-%{_libdir}/ocaml/lablgtk/pango.cm*
 %{_libdir}/ocaml/lablgtk/gtk[ABDEILMNPRSTW]*.cm*
 # hmm.. where did xml_lexer go?
 #%%{_libdir}/ocaml/lablgtk/x*.cm*
 %{_libdir}/ocaml/lablgtk/*.[ho]
 %{_libdir}/ocaml/lablgtk/lablgtk.*
-%{_libdir}/ocaml/lablgtk/liblablgtk2.*
+%{_libdir}/ocaml/lablgtk/liblablgtk.*
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/varcc
 %{_examplesdir}/%{name}-%{version}
 %{_libdir}/ocaml/site-lib/lablgtk
 
-%if 0%{!?_without_gnome:1}
+%if %{with gnome}
 %files gnome
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgnomecanvas.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgnome.so
+%{_libdir}/ocaml/dlllablgnome.so
 
 %files gnome-devel
 %defattr(644,root,root,755)
-%{_libdir}/ocaml/lablgtk/*Canvas*.cm*
-%{_libdir}/ocaml/lablgtk/lablgnomecanvas.*
-%{_libdir}/ocaml/lablgtk/liblablgnomecanvas.*
-%{_libdir}/ocaml/site-lib/lablgnomecanvas
+%{_libdir}/ocaml/lablgtk/gtkXmHTML.cm*
+%{_libdir}/ocaml/lablgtk/gHtml.cm*
+%{_libdir}/ocaml/lablgtk/lablgnome.*
+%{_libdir}/ocaml/lablgtk/liblablgnome.*
+%{_libdir}/ocaml/site-lib/lablgnome
 %endif
 
-%if 0%{!?_without_glade:1}
+%if %{with glade}
 %files glade
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablglade2.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablglade.so
+%{_libdir}/ocaml/dlllablglade.so
 
 %files glade-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/lablgladecc2
+%attr(755,root,root) %{_bindir}/lablgladecc
 %{_libdir}/ocaml/lablgtk/glade.cm*
 %{_libdir}/ocaml/lablgtk/lablglade.*
-%{_libdir}/ocaml/lablgtk/liblablglade2.*
+%{_libdir}/ocaml/lablgtk/liblablglade.*
 %{_libdir}/ocaml/site-lib/lablglade
 %endif
 
-%if 0%{!?_without_gl:1}
+%if %{with gl}
 %files gl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtkgl2.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtkgl.so
+%{_libdir}/ocaml/dlllablgtkgl.so
 
 %files gl-devel
 %defattr(644,root,root,755)
 %{_libdir}/ocaml/lablgtk/glGtk.cm*
 %{_libdir}/ocaml/lablgtk/lablgtkgl.*
-%{_libdir}/ocaml/lablgtk/liblablgtkgl2.*
+%{_libdir}/ocaml/lablgtk/liblablgtkgl.*
 %{_libdir}/ocaml/site-lib/lablgtkgl
 %endif
 
-%files rsvg
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablrsvg.so
-
-%files rsvg-devel
-%defattr(644,root,root,755)
-%{_libdir}/ocaml/lablgtk/rsvg.cm*
-%{_libdir}/ocaml/lablgtk/lablrsvg.*
-%{_libdir}/ocaml/lablgtk/liblablrsvg.*
-%{_libdir}/ocaml/site-lib/lablrsvg
-
 %files toplevel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/lablgtk2
+%attr(755,root,root) %{_bindir}/lablgtk
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/lablgtktop
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/lablgtktop_t
