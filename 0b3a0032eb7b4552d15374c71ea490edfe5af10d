@@ -1,0 +1,2 @@
+- split into -{glade,gl,gnome}{,-devel} subpackages
+- added br: ocaml-lablgl-devel (for -gl subpackage)
