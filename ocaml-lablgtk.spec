@@ -1,22 +1,32 @@
+#
+# Conditional build:
+# _without_gl		- without lablgtkgl
+# _without_gnome	- without lablgnome
+# _without_glade	- without lablglade
+#
+%if 0%{?_without_glade:1}%{?_without_gnome:1}
+%define _without_glgn 1
+%endif
 Summary:	GTK+ binding for OCaml
 Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
-Version:	1.2.3
-Release:	3
+Version:	1.2.5
+Release:	1
 License:	LGPL w/ linking exceptions
 Group:		Libraries
-URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
-Patch0:		%{name}-gnome.patch
+URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
+BuildRequires:	gdk-pixbuf-devel
+%{!?_without_gnome:BuildRequires:	gnome-libs-devel}
 BuildRequires:	gtk+-devel
-BuildRequires:	gnome-libs-devel
-BuildRequires:	libglade-devel
-BuildRequires:  libglade-gnome-devel
+%{!?_without_gl:BuildRequires:	gtkglarea1-devel >= 1.2.0}
+%{!?_without_glade:BuildRequires:	libglade-devel}
+%{!?_without_glgn:BuildRequires:  libglade-gnome-devel}
 BuildRequires:	libxml-devel
-BuildRequires:	gtkglarea-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
-BuildRequires:	ocaml-lablgl-devel
+%{!?_without_gl:BuildRequires:	ocaml-lablgl-devel}
 %requires_eq	ocaml-runtime
+Obsoletes:	lablgtk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -34,6 +44,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 %requires_eq	ocaml
 %requires_eq	ocaml-lablgl-devel
+Obsoletes:	lablgtk-examples
 
 %description devel
 GTK+ binding for OCaml. This package contains files needed to develop
@@ -153,25 +164,25 @@ Pakiet ten zawiera system interaktywny OCamla zlinkowany z lablgtk.
 
 %prep
 %setup -q -n lablgtk-%{version}
-%patch0 -p1
 
 %build
-%{__make} \
-	configure \
+%{__make} configure \
 	CC="%{__cc} %{rpmcflags} -fPIC" \
 	USE_CC=1 \
-	USE_GNOME=1 \
-	USE_GLADE=1 \
-	USE_GL=1
-%{__make} LABLGLDIR=%{_libdir}/ocaml/lablgl all opt
+	%{!?_without_gnome:USE_GNOME=1} \
+	%{!?_without_glade:USE_GLADE=1} \
+	%{!?_without_gl:USE_GL=1}
+
+%{__make} all opt \
+	LABLGLDIR=%{_libdir}/ocaml/lablgl
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/ocaml/stublibs}
 
 %{__make} install \
 	INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk \
+	DLLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
@@ -183,7 +194,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.ml
 gzip -9nf $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.mli
 mv $RPM_BUILD_ROOT%{_libdir}/ocaml/lablgtk/*.gz .
 
-(cd $RPM_BUILD_ROOT%{_libdir}/ocaml/ && ln -s lablgtk/dll*.so .)
+# still necessary?
+(cd $RPM_BUILD_ROOT%{_libdir}/ocaml && ln -s stublibs/dll*.so .)
 
 # make METAs for findlib
 install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labl{gtk,gnome,glade,gtkgl}
@@ -214,51 +226,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc CHANGES COPYING README
 %dir %{_libdir}/ocaml/lablgtk
-%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablgtk.so
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtk.so
 %{_libdir}/ocaml/dlllablgtk.so
-
-%files gnome
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablgnome.so
-%{_libdir}/ocaml/dlllablgnome.so
-
-%files glade
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablglade.so
-%{_libdir}/ocaml/dlllablglade.so
-
-%files gl
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/ocaml/lablgtk/dlllablgtkgl.so
-%{_libdir}/ocaml/dlllablgtkgl.so
-
-%files gl-devel
-%defattr(644,root,root,755)
-%{_libdir}/ocaml/lablgtk/glGtk.cm*
-%{_libdir}/ocaml/lablgtk/lablgtkgl.*
-%{_libdir}/ocaml/lablgtk/liblablgtkgl.*
-%{_libdir}/ocaml/site-lib/lablgtkgl
-
-%files gnome-devel
-%defattr(644,root,root,755)
-%{_libdir}/ocaml/lablgtk/gtkXmHTML.cm*
-%{_libdir}/ocaml/lablgtk/gHtml.cm*
-%{_libdir}/ocaml/lablgtk/lablgnome.*
-%{_libdir}/ocaml/lablgtk/liblablgnome.*
-%{_libdir}/ocaml/site-lib/lablgnome
-
-%files glade-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/lablgladecc
-%{_libdir}/ocaml/lablgtk/glade.cm*
-%{_libdir}/ocaml/lablgtk/lablglade.*
-%{_libdir}/ocaml/lablgtk/liblablglade.*
-%{_libdir}/ocaml/site-lib/lablglade
 
 %files devel
 %defattr(644,root,root,755)
-%doc README CHANGES COPYING
 %{_libdir}/ocaml/lablgtk/g[BCDELMOPRTUWadp]*.cm*
 %{_libdir}/ocaml/lablgtk/glib.cm*
 %{_libdir}/ocaml/lablgtk/gtk.cm*
@@ -271,6 +245,50 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/varcc
 %{_examplesdir}/%{name}-%{version}
 %{_libdir}/ocaml/site-lib/lablgtk
+
+%if 0%{!?_without_gnome:1}
+%files gnome
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgnome.so
+%{_libdir}/ocaml/dlllablgnome.so
+
+%files gnome-devel
+%defattr(644,root,root,755)
+%{_libdir}/ocaml/lablgtk/gtkXmHTML.cm*
+%{_libdir}/ocaml/lablgtk/gHtml.cm*
+%{_libdir}/ocaml/lablgtk/lablgnome.*
+%{_libdir}/ocaml/lablgtk/liblablgnome.*
+%{_libdir}/ocaml/site-lib/lablgnome
+%endif
+
+%if 0%{!?_without_glade:1}
+%files glade
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablglade.so
+%{_libdir}/ocaml/dlllablglade.so
+
+%files glade-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/lablgladecc
+%{_libdir}/ocaml/lablgtk/glade.cm*
+%{_libdir}/ocaml/lablgtk/lablglade.*
+%{_libdir}/ocaml/lablgtk/liblablglade.*
+%{_libdir}/ocaml/site-lib/lablglade
+%endif
+
+%if 0%{!?_without_gl:1}
+%files gl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtkgl.so
+%{_libdir}/ocaml/dlllablgtkgl.so
+
+%files gl-devel
+%defattr(644,root,root,755)
+%{_libdir}/ocaml/lablgtk/glGtk.cm*
+%{_libdir}/ocaml/lablgtk/lablgtkgl.*
+%{_libdir}/ocaml/lablgtk/liblablgtkgl.*
+%{_libdir}/ocaml/site-lib/lablgtkgl
+%endif
 
 %files toplevel
 %defattr(644,root,root,755)
