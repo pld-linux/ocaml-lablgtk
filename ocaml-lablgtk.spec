@@ -16,6 +16,7 @@ Release:	0.%{_snap}.1
 License:	LGPL w/ linking exceptions
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk2-%{_snap}.tar.gz
+# Source0-md5:	f20de46a7de7790e2345f18bc6759615
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
 %{!?_without_gnome:BuildRequires:	libgnomecanvas-devel}
 BuildRequires:	gtk+2-devel
