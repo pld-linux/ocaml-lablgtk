@@ -1,0 +1,30 @@
+--- lablgtk-1.2.3/src/Makefile~	Wed Dec 12 11:53:50 2001
++++ lablgtk-1.2.3/src/Makefile	Thu May 16 08:23:42 2002
+@@ -35,6 +35,10 @@
+ CFLAGS = -O -DGTK_NO_CHECK_CASTS -DGTK_DISABLE_COMPAT_H $(GTKCFLAGS)
+ endif
+ 
++ifdef USE_GNOME
++CFLAGS += $(GNOMECFLAGS)
++endif
++
+ THFLAGS = -thread
+ THLINK = unix.cma threads.cma
+ 
+--- lablgtk-1.2.3/Makefile~	Sun Sep  9 15:35:57 2001
++++ lablgtk-1.2.3/Makefile	Thu May 16 08:21:51 2002
+@@ -24,6 +24,7 @@
+ else
+ GTKCFLAGS = `$(GTK_CONFIG) --cflags`" -I"`gnome-config --includedir`
+ endif
++GNOMECFLAGS = `$(GNOME_CONFIG) --cflags gnome`
+ GNOMELIBS = `$(GNOME_CONFIG) --libs gtkxmhtml`
+ else
+ ifdef USE_GLADE
+@@ -61,5 +62,6 @@
+ 	@echo GTKLIBS=$(GTKLIBS) >> config.make
+ 	@echo GLLIBS=$(GLLIBS) >> config.make
+ 	@echo GNOMELIBS=$(GNOMELIBS) >> config.make
++	@echo GNOMECFLAGS=$(GNOMECFLAGS) >> config.make
+ 	@echo GLADELIBS=$(GLADELIBS) >> config.make
+ 	@cat config.make
