@@ -15,6 +15,7 @@ Release:	1
 License:	LGPL w/ linking exceptions
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
+# Source0-md5:	92628c756d2d3e2706b59d0382f23c19
 URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
 BuildRequires:	gdk-pixbuf-devel
 %{!?_without_gnome:BuildRequires:	gnome-libs-devel}
