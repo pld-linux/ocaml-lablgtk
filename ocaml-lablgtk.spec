@@ -12,6 +12,7 @@ BuildRequires:	gtk+-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	libglade-devel
 BuildRequires:	libxml-devel
+BuildRequires:	gtkglarea-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
 BuildRequires:	ocaml-lablgl-devel
 %requires_eq	ocaml-runtime
