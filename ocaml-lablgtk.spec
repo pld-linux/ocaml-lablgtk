@@ -208,8 +208,6 @@ linkopts = ""
 EOF
 done
 
-gzip -9nf README CHANGES COPYING
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -259,7 +257,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README CHANGES
 %{_libdir}/ocaml/lablgtk/g[BCDELMOPRTUWadp]*.cm*
 %{_libdir}/ocaml/lablgtk/glib.cm*
 %{_libdir}/ocaml/lablgtk/gtk.cm*
