@@ -10,8 +10,8 @@ Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.t
 BuildRequires:	gtk+-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	libglade-devel
+BuildRequires:	libxml-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
-Requires:	ocaml-runtime >= 3.04-7
 %requires_eq	ocaml-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -30,7 +30,6 @@ Summary:	GTK+ binding for OCaml - development part
 Summary(pl):	Wi±zania GTK+ dla OCamla - cze¶æ programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ocaml >= 3.04-7
 %requires_eq	ocaml
 
 %description devel
@@ -90,7 +89,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/ocaml/lablgtk/*.cm*
-%{_libdir}/ocaml/lablgtk/*.mli
 %{_libdir}/ocaml/lablgtk/*.[hao]
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/lablgtktop
 %attr(755,root,root) %{_libdir}/ocaml/lablgtk/lablgtktop_t
