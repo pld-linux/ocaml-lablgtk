@@ -11,6 +11,7 @@ Patch0:		%{name}-gnome.patch
 BuildRequires:	gtk+-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	libglade-devel
+BuildRequires:  libglade-gnome-devel
 BuildRequires:	libxml-devel
 BuildRequires:	gtkglarea-devel
 BuildRequires:	ocaml-camlp4 >= 3.04-7
