@@ -19,7 +19,7 @@ URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
 BuildRequires:	gdk-pixbuf-devel
 %{!?_without_gnome:BuildRequires:	gnome-libs-devel}
 BuildRequires:	gtk+-devel
-%{!?_without_gl:BuildRequires:	gtkglarea1-devel >= 1.2.0}
+%{!?_without_gl:BuildRequires:	gtkglarea-devel >= 1.2.0}
 %{!?_without_glade:BuildRequires:	libglade-devel}
 %{!?_without_glgn:BuildRequires:  libglade-gnome-devel}
 BuildRequires:	libxml-devel
