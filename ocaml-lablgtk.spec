@@ -9,7 +9,7 @@ Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
 Epoch:		1
 Version:	1.2.5
-Release:	2
+Release:	3
 License:	LGPL w/ linking exceptions
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
@@ -24,7 +24,7 @@ BuildRequires:	gtk+-devel
 BuildRequires:  libglade-gnome-devel
 %endif
 BuildRequires:	libxml-devel
-BuildRequires:	ocaml-camlp4 >= 3.04-7
+BuildRequires:	ocaml-camlp4 >= 3.07
 %{?with_gl:BuildRequires:	ocaml-lablgl-devel}
 %requires_eq	ocaml-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
