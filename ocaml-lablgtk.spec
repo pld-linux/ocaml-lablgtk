@@ -9,7 +9,7 @@ Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
 Epoch:		1
 Version:	1.2.7
-Release:	3
+Release:	4
 License:	LGPL w/ linking exceptions
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
