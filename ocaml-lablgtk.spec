@@ -24,6 +24,7 @@ BuildRequires:	gtk+-devel
 BuildRequires:	libglade-gnome-devel
 %endif
 BuildRequires:	libxml-devel
+BuildRequires:	which
 BuildRequires:	ocaml-camlp4 >= 3.07
 %{?with_gl:BuildRequires:	ocaml-lablgl-devel}
 %requires_eq	ocaml-runtime
