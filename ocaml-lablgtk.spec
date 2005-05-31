@@ -45,7 +45,7 @@ Summary(pl):	Wi±zania GTK+ dla OCamla - cze¶æ programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
-%requires_eq	ocaml-lablgl-devel
+%{?with_gl:%requires_eq	ocaml-lablgl-devel}
 Obsoletes:	lablgtk-examples
 
 %description devel
@@ -122,7 +122,7 @@ Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml-runtime
-%requires_eq	ocaml-lablgl
+%{?with_gl:%requires_eq	ocaml-lablgl}
 
 %description gl
 GTK+ binding for OCaml, GtkGL support. This package contains files
@@ -138,7 +138,7 @@ Summary(pl):	Wi±zania GTK+ dla OCamla - wsparcie dla GtkGL, czê¶æ programistyczn
 Group:		Development/Libraries
 Requires:	%{name}-gl = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
-%requires_eq	ocaml-lablgl-devel
+%{?with_gl:%requires_eq	ocaml-lablgl-devel}
 
 %description gl-devel
 GTK+ binding for OCaml, GtkGL support. This package contains files
