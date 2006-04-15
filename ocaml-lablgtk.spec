@@ -4,12 +4,13 @@
 %bcond_with	gnome	# build with lablgtkgnome packages
 %bcond_with	glade	# build with lablgtkglade packages
 #
+%define		ocaml_ver	3.09.1
 Summary:	GTK+ binding for OCaml
 Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
-Epoch:		1
 Version:	1.2.7
-Release:	6
+Release:	7
+Epoch:		1
 License:	LGPL w/ linking exceptions
 Group:		Libraries
 Source0:	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/dist/lablgtk-%{version}.tar.gz
@@ -24,12 +25,12 @@ BuildRequires:	gtk+-devel
 BuildRequires:	libglade-gnome-devel
 %endif
 BuildRequires:	libxml-devel
-BuildRequires:	which
-BuildRequires:	ocaml-camlp4 >= 3.07
+BuildRequires:	ocaml-camlp4 >= %{ocaml_ver}
 %{?with_gl:BuildRequires:	ocaml-lablgl-devel}
+BuildRequires:	which
 %requires_eq	ocaml-runtime
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	lablgtk
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 GTK+ binding for OCaml. This package contains files needed to run
@@ -176,7 +177,7 @@ lablgtk.
 	%{?with_glade:USE_GLADE=1} \
 	%{?with_gl:USE_GL=1}
 
-%{__make} all opt \
+%{__make} all opt -j1 \
 	LABLGLDIR=%{_libdir}/ocaml/lablgl
 
 %install
