@@ -4,12 +4,12 @@
 %bcond_with	gnome	# build with lablgtkgnome packages
 %bcond_with	glade	# build with lablgtkglade packages
 #
-%define		ocaml_ver	3.09.1
+%define		ocaml_ver	1:3.09.1
 Summary:	GTK+ binding for OCaml
 Summary(pl):	Wi±zania GTK+ dla OCamla
 Name:		ocaml-lablgtk
 Version:	1.2.7
-Release:	7
+Release:	8
 Epoch:		1
 License:	LGPL w/ linking exceptions
 Group:		Libraries
