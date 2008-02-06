@@ -1,8 +1,8 @@
 #
 # Conditional build:
-%bcond_with	gl		# build with lablgtkgl packages
-%bcond_with	gnome	# build with lablgtkgnome packages
+%bcond_with	opengl	# build with lablgtkgl packages
 %bcond_with	glade	# build with lablgtkglade packages
+%bcond_with	gnome	# build with lablgtkgnome packages
 #
 %define		ocaml_ver	1:3.09.2
 Summary:	GTK+ binding for OCaml
@@ -19,14 +19,14 @@ URL:		http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
 BuildRequires:	gdk-pixbuf-devel
 %{?with_gnome:BuildRequires:	gnome-libs-devel}
 BuildRequires:	gtk+-devel
-%{?with_gl:BuildRequires:	gtkglarea1-devel >= 1.2.0}
+%{?with_opengl:BuildRequires:	gtkglarea1-devel >= 1.2.0}
 %{?with_glade:BuildRequires:	libglade-devel}
 %if %{with glade} && %{with gnome}
 BuildRequires:	libglade-gnome-devel
 %endif
 BuildRequires:	libxml-devel
 BuildRequires:	ocaml-camlp4 >= %{ocaml_ver}
-%{?with_gl:BuildRequires:	ocaml-lablgl-devel}
+%{?with_opengl:BuildRequires:	ocaml-lablgl-devel}
 BuildRequires:	which
 %requires_eq	ocaml-runtime
 Obsoletes:	lablgtk
@@ -46,7 +46,7 @@ Summary(pl.UTF-8):	Wiązania GTK+ dla OCamla - cześć programistyczna
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
-%{?with_gl:%requires_eq	ocaml-lablgl-devel}
+%{?with_opengl:%requires_eq	ocaml-lablgl-devel}
 Obsoletes:	lablgtk-examples
 
 %description devel
@@ -123,7 +123,7 @@ Summary(pl.UTF-8):	Wiązania GTK+ dla OCamla - wsparcie dla GtkGL
 Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml-runtime
-%{?with_gl:%requires_eq	ocaml-lablgl}
+%{?with_opengl:%requires_eq	ocaml-lablgl}
 
 %description gl
 GTK+ binding for OCaml, GtkGL support. This package contains files
@@ -139,7 +139,7 @@ Summary(pl.UTF-8):	Wiązania GTK+ dla OCamla - wsparcie dla GtkGL, część prog
 Group:		Development/Libraries
 Requires:	%{name}-gl = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
-%{?with_gl:%requires_eq	ocaml-lablgl-devel}
+%{?with_opengl:%requires_eq	ocaml-lablgl-devel}
 
 %description gl-devel
 GTK+ binding for OCaml, GtkGL support. This package contains files
@@ -175,7 +175,7 @@ lablgtk.
 	USE_CC=1 \
 	%{?with_gnome:USE_GNOME=1} \
 	%{?with_glade:USE_GLADE=1} \
-	%{?with_gl:USE_GL=1}
+	%{?with_opengl:USE_GL=1}
 
 %{__make} all opt -j1 \
 	LABLGLDIR=%{_libdir}/ocaml/lablgl
@@ -276,7 +276,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/lablglade
 %endif
 
-%if %{with gl}
+%if %{with opengl}
 %files gl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/ocaml/stublibs/dlllablgtkgl.so
