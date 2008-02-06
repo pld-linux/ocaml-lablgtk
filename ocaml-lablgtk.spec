@@ -76,7 +76,7 @@ binaria potrzebne do uruchamiania programów używających LablGtk-GNOME.
 Summary:	GTK+ binding for OCaml - GNOME support, development part
 Summary(pl.UTF-8):	Wiązania GTK+ dla OCamla - wsparcie dla GNOME, część programistyczna
 Group:		Development/Libraries
-Requires:	%{name}-gnome = %{version}-%{release}
+Requires:	%{name}-gnome = %{epoch}:%{version}-%{release}
 %requires_eq	ocaml
 
 %description gnome-devel
